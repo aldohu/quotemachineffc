@@ -1,26 +1,29 @@
 // src/App.js
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setQuote } from './redux/quoteReducer';
+import store from './redux/store'; // Import the store
 
 const App = () => {
-	const quote = useSelector((state) => state.text);
-	const author = useSelector((state) => state.author);
+	const quote = useSelector((state) => state.quote.text); // access the combined reducer state
+	const author = useSelector((state) => state.quote.author); // access the combined reducer state
 	const dispatch = useDispatch();
 
 	const fetchQuote = async () => {
 		try {
-			const response = await axios.get('https://api.quotable.io/random');
+			const response = await axios.get('http://localhost:5000/quote');
+			console.log('Response:', response.data); // Log the response data
+			const quoteData = response.data;
 			dispatch(
 				setQuote({
-					content: response.data.content,
-					author: response.data.author,
+					content: quoteData.content,
+					author: quoteData.author,
 				}),
 			);
+			console.log('State after dispatch:', store.getState()); // Log the state after dispatch
 		} catch (error) {
-			console.error('Error fetching quote:', error);
+			console.error('Error fetching quote:', error.message);
 		}
 	};
 

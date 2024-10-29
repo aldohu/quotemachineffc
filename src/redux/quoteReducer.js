@@ -1,12 +1,4 @@
-// src/redux/quoteReducer.js
-
-const SET_QUOTE = 'SET_QUOTE';
-
-export const setQuote = (quote) => ({
-	type: SET_QUOTE,
-	payload: quote,
-});
-
+// redux/quoteReducer.js
 const initialState = {
 	text: '',
 	author: '',
@@ -14,7 +6,7 @@ const initialState = {
 
 const quoteReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case SET_QUOTE:
+		case 'SET_QUOTE':
 			return {
 				...state,
 				text: action.payload.content,
@@ -24,5 +16,11 @@ const quoteReducer = (state = initialState, action) => {
 			return state;
 	}
 };
+
+// Action creator
+export const setQuote = (quote) => ({
+	type: 'SET_QUOTE',
+	payload: quote,
+});
 
 export default quoteReducer;
