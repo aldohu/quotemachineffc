@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setQuote } from './redux/quoteReducer';
 import store from './redux/store'; // Import the store
-
+import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 const App = () => {
 	const quote = useSelector((state) => state.quote.text); // access the combined reducer state
 	const author = useSelector((state) => state.quote.author); // access the combined reducer state
@@ -12,7 +14,7 @@ const App = () => {
 
 	const fetchQuote = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/quote');
+			const response = await axios.get('https://zenquotes.io/api/random');
 			console.log('Response:', response.data); // Log the response data
 			const quoteData = response.data;
 			dispatch(
@@ -49,7 +51,10 @@ const App = () => {
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				Tweet Quote
+				<FontAwesomeIcon
+					className="tweeter"
+					icon={faTwitter}
+				/>
 			</a>
 		</div>
 	);
