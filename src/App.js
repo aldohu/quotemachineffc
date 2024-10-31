@@ -14,13 +14,17 @@ const App = () => {
 
 	const fetchQuote = async () => {
 		try {
-			const response = await axios.get('https://zenquotes.io/api/random');
+			const response = await axios.get('https://dummyjson.com/quotes/random');
 			console.log('Response:', response.data); // Log the response data
+
+			// Extract quote and author from the response
 			const quoteData = response.data;
+
+			// Dispatch the quote to the Redux store
 			dispatch(
 				setQuote({
-					content: quoteData.content,
-					author: quoteData.author,
+					content: quoteData.quote,
+					author: quoteData.author || 'Unknown', // Handle case where author might be null
 				}),
 			);
 			console.log('State after dispatch:', store.getState()); // Log the state after dispatch
